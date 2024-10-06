@@ -13,7 +13,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Utils {
+	public static Class<?> fp;
 
+	static {
+		try {
+			fp = Class.forName("net.minecraftforge.common.util.FakePlayer");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			// You might want to log this error or handle it differently
+			fp = null;
+		}
+	}
+
+	public static boolean isFake(Object entity) {
+		return fp != null && fp.isInstance(entity);
+	}
 	public static String chat(String s) {
 		return ChatColor.translateAlternateColorCodes('&', s);
 	}
