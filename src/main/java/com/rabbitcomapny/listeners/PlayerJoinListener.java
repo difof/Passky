@@ -13,7 +13,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-
 public class PlayerJoinListener implements Listener {
 
 	private final Passky passky;
@@ -26,6 +25,10 @@ public class PlayerJoinListener implements Listener {
 
 	@EventHandler
 	public void onPlayerJoin(final PlayerJoinEvent e) {
+		if (Utils.isFake(e.getPlayer())) {
+			Passky.isLoggedIn.put(e.getPlayer().getUniqueId(), true);
+			return;
+		}
 
 		if (Passky.getInstance().getConf().getBoolean("kick_illegal_usernames", true)) {
 			if (!e.getPlayer().getName().matches("[a-zA-Z0-9_]+") || e.getPlayer().getName().length() < 3 || e.getPlayer().getName().length() > 16) {

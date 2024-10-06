@@ -1,6 +1,7 @@
 package com.rabbitcomapny.listeners;
 
 import com.rabbitcomapny.Passky;
+import com.rabbitcomapny.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,6 +19,10 @@ public class PlayerDropItemListener implements Listener {
 
 	@EventHandler
 	public void onPlayerDropItem(PlayerDropItemEvent e) {
+		if (Utils.isFake(e.getPlayer())) {
+			return;
+		}
+
 		if (!Passky.isLoggedIn.getOrDefault(e.getPlayer().getUniqueId(), false)) {
 			e.setCancelled(true);
 		}

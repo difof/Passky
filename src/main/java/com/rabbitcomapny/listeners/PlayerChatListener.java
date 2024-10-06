@@ -19,6 +19,10 @@ public class PlayerChatListener implements Listener {
 
 	@EventHandler
 	public void onPlayerChat(AsyncPlayerChatEvent e) {
+		if (Utils.isFake(e.getPlayer())) {
+			return;
+		}
+
 		if (!Passky.isLoggedIn.getOrDefault(e.getPlayer().getUniqueId(), false)) {
 			e.setCancelled(true);
 

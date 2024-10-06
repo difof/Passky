@@ -30,6 +30,10 @@ public class PlayerCommandListener implements Listener {
 
 	@EventHandler
 	public void onPlayerCommand(PlayerCommandPreprocessEvent e) {
+		if (Utils.isFake(e.getPlayer())) {
+			return;
+		}
+
 		if (!Passky.isLoggedIn.getOrDefault(e.getPlayer().getUniqueId(), false)) {
 			String command = e.getMessage().toLowerCase().split(" ")[0];
 			if (!allowedCommands.contains(command)) {

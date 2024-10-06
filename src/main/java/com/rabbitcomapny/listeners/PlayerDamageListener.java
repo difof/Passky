@@ -1,6 +1,7 @@
 package com.rabbitcomapny.listeners;
 
 import com.rabbitcomapny.Passky;
+import com.rabbitcomapny.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,6 +20,10 @@ public class PlayerDamageListener implements Listener {
 
 	@EventHandler
 	public void onPlayerDamage(EntityDamageEvent e) {
+		if (Utils.isFake(e.getEntity())) {
+			return;
+		}
+
 		if (e.getEntity() instanceof Player) {
 			if (!Passky.isLoggedIn.getOrDefault(e.getEntity().getUniqueId(), false)) {
 				e.setCancelled(true);
